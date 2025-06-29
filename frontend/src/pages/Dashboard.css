@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* General Body Styles */
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background-color: #f8f9fa; /* Light background for the main content area */
+  color: #343a40;
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* New Gradient Header */
+.dashboard-header {
+  background: linear-gradient(to right, #20c997, #6f42c1);
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.brand-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.brand-highlight {
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.search-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0 2rem;
+}
+
+.search-bar {
+    width: 100%;
+    max-width: 450px;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.search-bar::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.search-bar:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-actions button, .header-actions .add-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.add-btn {
+    background-color: #fff;
+    color: #6f42c1;
+}
+.add-btn:hover {
+    background-color: #f0f0f0;
+    transform: translateY(-2px);
+}
+
+.logout-btn {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+}
+.logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+
+/* Main Content Area */
+.dashboard-main {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* Toolbar below header */
+.dashboard-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.page-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1e1e2f;
+    margin: 0;
+}
+
+.tag-filters {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tag-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 20px;
+    background: #fff;
+    color: #495057;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tag-btn:hover {
+    border-color: #20c997;
+    color: #20c997;
+}
+
+.tag-btn.active {
+    background: #20c997;
+    color: white;
+    border-color: #20c997;
+}
+
+/* Redesigned Contact Grid & Cards */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* This is the styling for your ContactCard component */
+.contact-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.contact-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.contact-avatar img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #20c997;
+}
+
+.contact-info .name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    color: #333;
+}
+
+.contact-info .email {
+    font-size: 0.9rem;
+    color: #6c757d;
+    word-break: break-all;
+}
+
+.contact-card-body {
+    margin-bottom: 1.5rem;
+}
+
+.contact-card-body p {
+    margin: 0.25rem 0;
+    color: #495057;
+}
+
+.contact-card-body strong {
+    color: #343a40;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+    background-color: #6f42c1; /* Default tag color */
+}
+
+/* You can add more specific tag colors if you like */
+.tag.WORK { background-color: #0d6efd; }
+.tag.FAMILY { background-color: #198754; }
+.tag.FRIENDS { background-color: #ffc107; color: #333; }
+
+.contact-card-footer {
+    margin-top: auto;
+    display: flex;
+    gap: 0.5rem;
+    border-top: 1px solid #f1f3f5;
+    padding-top: 1rem;
+}
+
+.card-btn {
+    flex-grow: 1;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.edit-btn { color: #6f42c1; }
+.edit-btn:hover { background-color: #f1e4ff; border-color: #6f42c1; }
+
+.delete-btn { color: #dc3545; }
+.delete-btn:hover { background-color: #ffe5e7; border-color: #dc3545; }
+
+
+/* No Contacts Card */
+.no-contacts-card {
+  background: white;
+  padding: 3rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  grid-column: 1 / -1; /* Make it span the full grid width */
+}
+
+.no-contacts-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.no-contacts-card p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.add-btn-large {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    background-color: #20c997;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.add-btn-large:hover {
+    background-color: #1aab8a;
+}
+
+
+/* Footer */
+.dashboard-footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.9rem;
+  color: #6c757d;
+  background-color: #fff;
+  border-top: 1px solid #e9ecef;
+}
