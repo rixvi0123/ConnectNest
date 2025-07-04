@@ -14,23 +14,38 @@ app.use(cors());
 
 app.use(express.json());
 
-// API routes - use these exact paths for Vercel deployment
+// API routes
 app.use("/api/contacts", require("./routes/contactRoute"));
 app.use("/api/users", require("./routes/userRoutes"));
 
-// API health check endpoints
-app.get('/api', (req, res) => {
-  res.json({ message: 'ConnectNest API is running' });
-});
-
+// API health check
 app.get('/api/health', (req, res) => {
   res.json({ message: 'ConnectNest API is running' });
 });
 
-// Root endpoint
-app.get('/', (req, res) => {
-  res.json({ message: 'ConnectNest API server is running' });
-});
+// Serve static files from the React build
+const frontendBuildPath = path.join(__dirname, '../frontend/build');
+if (fs.existsSync(frontendBuildPath)) {
+  console.log('Serving frontend from:', frontendBuildPath);
+  
+  // Serve static files
+  app.use(express.static(frontendBuildPath));
+  
+  // For any other route, serve the React app
+  app.get('*', (req, res, next) => {
+    // Skip API routes
+    if (req.path.startsWith('/api/')) {
+      return next();
+    }
+    res.sendFile(path.join(frontendBuildPath, 'index.html'));
+  });
+} else {
+  console.log('Frontend build not found at:', frontendBuildPath);
+  // Root endpoint as fallback
+  app.get('/', (req, res) => {
+    res.json({ message: 'ConnectNest API server is running, but frontend build is not available' });
+  });
+}
 
 app.use(errorhandle)
 
