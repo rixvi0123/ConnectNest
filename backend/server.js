@@ -10,8 +10,12 @@ connectDb();
 
 app.use(cors());
 
-
 app.use(express.json());
+
+// Root route for API health check
+app.get('/', (req, res) => {
+  res.json({ message: 'ConnectNest API is running' });
+});
 
 app.use("/api/contacts",require("./routes/contactRoute"));
 app.use("/api/users",require("./routes/userRoutes"));

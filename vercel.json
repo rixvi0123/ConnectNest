@@ -9,18 +9,34 @@
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "build"
       }
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "/backend/server.js"
+      "src": "/api/(.*)",
+      "dest": "/backend/server.js"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "^/static/(.*)",
+      "dest": "/frontend/build/static/$1"
+    },
+    {
+      "src": "^/favicon.ico",
+      "dest": "/frontend/build/favicon.ico"
+    },
+    {
+      "src": "^/manifest.json",
+      "dest": "/frontend/build/manifest.json"
+    },
+    {
+      "src": "^/robots.txt",
+      "dest": "/frontend/build/robots.txt"
+    },
+    {
+      "src": "^/(.*)",
+      "dest": "/frontend/build/index.html"
     }
   ]
 }
