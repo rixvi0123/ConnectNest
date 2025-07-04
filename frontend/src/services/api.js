@@ -1,8 +1,18 @@
 // src/services/api.js
 import axios from 'axios';
 
+// Determine API URL based on environment
+const getBaseUrl = () => {
+  if (process.env.NODE_ENV === 'production') {
+    // For Vercel deployment
+    return '/api';
+  }
+  // For local development
+  return 'http://localhost:5001/api';
+};
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: getBaseUrl(),
 });
 
 // Attach token automatically

@@ -6,26 +6,31 @@ const errorHandler = require('../backend/middleware/errorHandler');
 const contactRoutes = require('../backend/routes/contactRoute');
 const userRoutes = require('../backend/routes/userRoutes');
 
+// Create express server
 const app = express();
+
+// Connect to MongoDB
 connectDb();
 
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// API routes
-app.use("/api/contacts", contactRoutes);
-app.use("/api/users", userRoutes);
+// Remove the /api prefix from routes since Vercel already routes /api/* to this function
+app.use("/contacts", contactRoutes);
+app.use("/users", userRoutes);
 
-// API health check
-app.get('/api/health', (req, res) => {
+// Health check routes
+app.get('/health', (req, res) => {
   res.json({ message: 'ConnectNest API is running' });
 });
 
-// Basic root response
-app.get('/api', (req, res) => {
+app.get('/', (req, res) => {
   res.json({ message: 'ConnectNest API is running' });
 });
 
+// Error handling
 app.use(errorHandler);
 
+// For Vercel serverless functions
 module.exports = app;
