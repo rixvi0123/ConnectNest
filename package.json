@@ -1,0 +1,16 @@
+{
+  "name": "connectnest",
+  "version": "1.0.0",
+  "description": "A contact manager application",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "build": "cd frontend && npm install && npm run build",
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "author": "ADNAN RIZVI",
+  "license": "ISC"
+}
