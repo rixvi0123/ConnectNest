@@ -14,12 +14,12 @@ app.use(cors());
 
 app.use(express.json());
 
-// API routes
+// API routes - use these exact paths for Vercel deployment
 app.use("/api/contacts", require("./routes/contactRoute"));
 app.use("/api/users", require("./routes/userRoutes"));
 
-// Root and API health routes
-app.get('/', (req, res) => {
+// API health check endpoints
+app.get('/api', (req, res) => {
   res.json({ message: 'ConnectNest API is running' });
 });
 
@@ -27,20 +27,10 @@ app.get('/api/health', (req, res) => {
   res.json({ message: 'ConnectNest API is running' });
 });
 
-// Serve static frontend files from build folder
-const frontendBuildPath = path.join(__dirname, '../frontend/build');
-if (fs.existsSync(frontendBuildPath)) {
-  app.use(express.static(frontendBuildPath));
-  
-  // Handle SPA routing - all non-API routes go to index.html
-  app.get('*', (req, res, next) => {
-    if (req.url.startsWith('/api/')) {
-      return next();
-    }
-    res.sendFile(path.join(frontendBuildPath, 'index.html'));
-  });
-}
-
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({ message: 'ConnectNest API server is running' });
+});
 
 app.use(errorhandle)
 
