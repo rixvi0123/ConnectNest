@@ -2,14 +2,28 @@
   "name": "connectnest",
   "version": "1.0.0",
   "description": "A contact manager application",
-  "main": "backend/server.js",
+  "main": "api/index.js",
   "scripts": {
     "start": "node backend/server.js",
-    "build": "cd frontend && npm install && npm run build && cd ../backend && npm install",
-    "vercel-build": "cd frontend && npm install && npm run build && cd ../backend && npm install"
+    "build": "pwsh -File build.ps1",
+    "vercel-build": "cd frontend && npm install && npm run build && cd ../backend && npm install && cd .. && powershell -Command \"if (!(Test-Path -Path public)) { New-Item -ItemType Directory -Path public }; Copy-Item -Path frontend/build/* -Destination public/ -Recurse -Force\"",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\""
   },
   "engines": {
     "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.13.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "express-async-handler": "^1.2.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   },
   "author": "ADNAN RIZVI",
   "license": "ISC"

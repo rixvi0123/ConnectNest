@@ -1,18 +1,31 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
-const connectDb = require("./config/dbConnection")
+const connectDb = require("./config/dbConnection");
 const errorhandle = require("./middleware/errorHandler");
 const path = require("path");
 const fs = require('fs');
-// Let Vercel assign the port in production, use default for local dev
-const port = process.env.PORT || 5000;
+
+// Create Express app
 const app = express();
-connectDb();
 
-app.use(cors());
+// Connect to MongoDB (only connect once in dev mode)
+if (process.env.NODE_ENV !== 'production') {
+  connectDb();
+}
 
+// Middleware
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' ? [/\.vercel\.app$/, /localhost/] : true,
+  credentials: true
+}));
 app.use(express.json());
+
+// Logging middleware for debugging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.originalUrl}`);
+  next();
+});
 
 // API routes
 app.use("/api/contacts", require("./routes/contactRoute"));
@@ -47,10 +60,17 @@ if (fs.existsSync(frontendBuildPath)) {
   });
 }
 
-app.use(errorhandle)
+app.use(errorhandle);
 
-app.listen(port,()=>{
+// In development, start the server
+if (process.env.NODE_ENV !== 'production') {
+  const port = process.env.PORT || 5000;
+  app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-});
+  });
+}
+
+// Export the Express app for serverless environments (Vercel)
+module.exports = app;
 
 
