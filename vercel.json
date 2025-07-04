@@ -1,17 +1,18 @@
 {
   "version": 2,
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api" },
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
-  "builds": [
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "frontend/build",
+  "routes": [
     {
-      "src": "api/index.js",
-      "use": "@vercel/node"
+      "src": "/api/(.*)",
+      "dest": "/api/index.js"
+    },
+    { 
+      "handle": "filesystem"
     },
     {
-      "src": "frontend/build/**",
-      "use": "@vercel/static"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
