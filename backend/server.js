@@ -4,6 +4,7 @@ const cors = require("cors");
 const connectDb = require("./config/dbConnection")
 const errorhandle = require("./middleware/errorHandler");
 const path = require("path");
+const fs = require('fs');
 // Let Vercel assign the port in production, use default for local dev
 const port = process.env.PORT || 5000;
 const app = express();
@@ -17,13 +18,28 @@ app.use(express.json());
 app.use("/api/contacts", require("./routes/contactRoute"));
 app.use("/api/users", require("./routes/userRoutes"));
 
-// API health check route
+// Root and API health routes
+app.get('/', (req, res) => {
+  res.json({ message: 'ConnectNest API is running' });
+});
+
 app.get('/api/health', (req, res) => {
   res.json({ message: 'ConnectNest API is running' });
 });
 
-// For Vercel deployment, we'll handle frontend routing differently
-// The frontend routes will be handled by Vercel's routing system via vercel.json
+// Serve static frontend files from build folder
+const frontendBuildPath = path.join(__dirname, '../frontend/build');
+if (fs.existsSync(frontendBuildPath)) {
+  app.use(express.static(frontendBuildPath));
+  
+  // Handle SPA routing - all non-API routes go to index.html
+  app.get('*', (req, res, next) => {
+    if (req.url.startsWith('/api/')) {
+      return next();
+    }
+    res.sendFile(path.join(frontendBuildPath, 'index.html'));
+  });
+}
 
 
 app.use(errorhandle)
